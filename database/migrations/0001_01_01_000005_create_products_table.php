@@ -11,18 +11,20 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('branch_id')
-                  ->constrained('branches')
-                  ->onDelete('cascade');
-
             $table->foreignId('category_id')
-                  ->constrained('categories')
-                  ->onDelete('cascade');
+                ->constrained('categories')
+                ->cascadeOnDelete();
 
             $table->string('product_name');
-            $table->integer('stock')->default(0);
-            $table->decimal('price', 12, 2);
-
+            $table->string('slug');
+            $table->string('sku')->unique();
+            $table->string('barcode')->nullable()->unique();
+            $table->decimal('purchase_price', 12, 2);
+            $table->decimal('selling_price', 12, 2);
+            $table->string('unit')->default('pcs');
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

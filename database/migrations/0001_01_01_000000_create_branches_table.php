@@ -10,9 +10,12 @@ return new class extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
+            $table->string('branch_code')->unique();
             $table->string('branch_name');
-            $table->text('address');
             $table->string('city');
+            $table->text('address');
+            $table->string('phone')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

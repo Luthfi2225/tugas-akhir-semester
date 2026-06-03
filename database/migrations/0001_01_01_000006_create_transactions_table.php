@@ -11,17 +11,32 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('branch_id')
-                  ->constrained('branches')
-                  ->onDelete('cascade');
-
-            $table->foreignId('user_id')
-                  ->constrained('users')
-                  ->onDelete('cascade');
-
             $table->string('invoice_number')->unique();
 
-            $table->decimal('total_price', 12, 2);
+            $table->foreignId('branch_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->decimal('subtotal', 15, 2)->default(0);
+            $table->decimal('discount', 15, 2)->default(0);
+            $table->decimal('tax', 15, 2)->default(0);
+            $table->decimal('total_amount', 15, 2);
+
+            $table->enum('payment_method', [
+                'cash',
+                'debit',
+                'credit',
+                'qris',
+                'ewallet'
+            ]);
+
+            $table->decimal('paid_amount', 15, 2);
+            $table->decimal('change_amount', 15, 2)->default(0);
+            $table->timestamp('transaction_date')->useCurrent();
 
             $table->timestamps();
         });

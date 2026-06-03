@@ -13,7 +13,7 @@
             <x-input-error :messages="$errors->get('email')" />
         </div>
 
-        <x-text-input id="email" class="block w-full dark:bg-[#3a3a3a] dark:border-black"
+        <x-text-input id="email" class="block w-full"
                         type="email"
                         name="email"
                         :value="old('email')"

@@ -13,7 +13,7 @@
                 <x-input-error :messages="$errors->get('email')" />
             </div>
 
-            <x-text-input id="email" class="block w-full focus:border-gray-300 focus:ring-gray-300 dark:bg-[#3a3a3a] dark:border-black dark:focus:border-black dark:focus:ring-black cursor-not-allowed"
+            <x-text-input id="email" class="block w-full cursor-not-allowed"
                             type="email"
                             name="email"
                             :value="old('email', $request->email)"
